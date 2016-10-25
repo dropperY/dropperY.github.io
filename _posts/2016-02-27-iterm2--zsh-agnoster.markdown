@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  item2+zsh+agnoster
+title:  iTerm2+zsh+agnoster
 date:   2016-03-27 22:20:15 +0800
 ---
 
 
-###iTerm2+zsh+agnoster
+## iTerm2+zsh+agnoster
 
 最近突然发现oh-my-zsh的新主题agnoster,的确很fancy,
 
@@ -13,7 +13,7 @@ date:   2016-03-27 22:20:15 +0800
 
 于是迫不及待安装，本以为修改zsh_theme即可，结果没有想象中那么顺利。
 
-###iTerm2
+## iTerm2
 
 下面是iTerm2官网，这个自行下载安装
 [iTerm](http://www.iterm2.com/)
@@ -26,7 +26,7 @@ iTerm -> preferences -> profiles -> colors -> load presets
 - Solarized Light theme
 
 
-###oh-my-zsh
+## oh-my-zsh
 
 可直接使用以下命令安装
 
@@ -40,7 +40,7 @@ iTerm -> preferences -> profiles -> colors -> load presets
 
 相关链接：[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 
-###安装powerline
+## 安装powerline
 
 下载powerline
 
