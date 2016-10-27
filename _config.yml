@@ -1,14 +1,15 @@
 # Site
-title:              Moon
-bio:                'Minimal, one column jekyll theme.'
-description:        "Moon is a minimal, one column jekyll theme for your blog."
+title:              Ye's blo
+bio:                'Ye's blog'
+description:        " Ye's blog based on Moon"
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/logo.png'
 background:         'assets/img/placeholder-big.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_US
-url:                http://droppery.github.io/
+url:                http://droppery.github.io
+#url:                http://127.0.0.1:4000
 
 # Jekyll
 permalink:          /:title/

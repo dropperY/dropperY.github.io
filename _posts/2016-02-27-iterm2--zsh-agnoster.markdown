@@ -9,7 +9,7 @@ date:   2016-03-27 22:20:15 +0800
 
 最近突然发现oh-my-zsh的新主题agnoster,的确很fancy,
 
-![agnoster]({{ site.url }}/assets/agnoster.png)
+![agnoster]({{ site.url }}/assets/img/agnoster.png)
 
 于是迫不及待安装，本以为修改zsh_theme即可，结果没有想象中那么顺利。
 

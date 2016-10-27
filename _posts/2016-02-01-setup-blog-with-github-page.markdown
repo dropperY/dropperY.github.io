@@ -16,14 +16,14 @@ date:   2016-02-01 18:20:05 +0800
 GitHub Pages分两种，一种是你的GitHub用户名建立，另一种是依附项目的pages。这里我们使用第一种，
 新建一个名为`username.github.io`的工程。
 
-![create-github-page-repo]({{ site.url }}/assets/create-github-page-repo.png)
+![create-github-page-repo]({{ site.url }}/assets/img/create-github-page-repo.png)
 
 注意:必须新建一个新的工程，别的工程改名为`username.github.io`也是没有用的T.T。
 创建完可以访问一下`username.github.io`确认能否正常访问.
 
 如果无法访问，可以看一下repo的settings,正常情况应该像下面这样
 
-![github-page-repo-settings]({{ site.url }}/assets/github-page-repo-settings.png)
+![github-page-repo-settings]({{ site.url }}/assets/img/github-page-repo-settings.png)
 
 
 ## 安装Jekyll
