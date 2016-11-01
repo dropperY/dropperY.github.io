@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  Android apk
+title:  Android多渠道打包
 date:   2016-04-17 22:20:15 +0800
-tag:	 android apk 
+tags:	 Android Apk
 ---
 
 

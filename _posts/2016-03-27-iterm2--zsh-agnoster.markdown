@@ -2,6 +2,7 @@
 layout: post
 title:  iTerm2+zsh+agnoster
 date:   2016-03-27 22:20:15 +0800
+tags:   iTerm2 zsh agnoster
 ---
 
 
