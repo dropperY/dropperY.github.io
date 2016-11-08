@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Xcode8中使用CoreData
-date:   2016-04-17 22:20:15 +0800
+date:   2016-11-11 22:20:15 +0800
 tags:	 Xcode swift CoreData 
 ---
 

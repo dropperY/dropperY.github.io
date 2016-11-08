@@ -13,9 +13,7 @@ tags:	 Android Apk
 例如在Application下加入如下：
 
 ```
-	<meta-data
-   		android:name="channelid"
-    	android:value="100" />
+	<meta-data android:name="channelid" android:value="100" />
 ```
 
 在代码中读取
