@@ -1,0 +1,95 @@
+---
+layout: post
+title:  使用zip对apk重打包的注意
+date:   2016-11-14 20:23:15 +0800
+tags:	 Android Apk zip
+---
+
+
+最近发现某apk在经过重新打包后，相关音乐文件无法播放的问题，我们在之前的博文中提过多种多渠道打包的方法，基本都是通过`zip`相关命令。那么apk是否与普通的zip文件有什么区别呢？
+
+
+## Apk
+
+Android 应用程序包文件 (APK) 是一种Android操作系统上的应用程序安装文件格式，其英文全称为 “Android application package” 。一个Android应用程序的代码想要在Android设备上运行，必须先进行编译，然后被打包成为一个被Android系统所能识别的文件才可以被运行，而这种能被Android系统识别并运行的文件格式便是“APK”。 一个APK文件内包含被编译的代码文件(.dex 文件)，文件资源（resources）， assets，证书（certificates），和清单文件（manifest file）。
+
+APK 文件基于 `ZIP` 文件格式，它与JAR文件的构造方式相似。它的互联网媒体类型是application/vnd.android.package-archive.
+
+
+上面可知apk就是一种`ZIP`，我们知道apk是通过`aapt`工具打包生成，接下来我们就继续研究下相关源代码。
+
+## aapt
+
+### 简单介绍
+
+`aapt` stands for Android Asset Packaging Tool and is included in the tools/ directory of the SDK. This tool allows you to view, create, and update Zip-compatible archives (zip, jar, apk). It can also compile resources into binary assets.
+
+
+### 相关代码
+
+ aapt打包apk的相关代码在[aapt/Package.cpp](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt/Package.cpp)相关章节。
+ 
+ 阅读下面代码可知，`aapt`会排除部分后缀名的文件不进行压缩
+ 
+ ```
+ /*
+ * Determine whether or not we want to try to compress this file based
+ * on the file extension.
+ */
+bool okayToCompress(Bundle* bundle, const String8& pathName)
+{
+    String8 ext = pathName.getPathExtension();
+    int i;
+    if (ext.length() == 0)
+        return true;
+    for (i = 0; i < NELEM(kNoCompressExt); i++) {
+        if (strcasecmp(ext.string(), kNoCompressExt[i]) == 0)
+            return false;
+    }
+    const android::Vector<const char*>& others(bundle->getNoCompressExtensions());
+    for (i = 0; i < (int)others.size(); i++) {
+        const char* str = others[i];
+        int pos = pathName.length() - strlen(str);
+        if (pos < 0) {
+            continue;
+        }
+        const char* path = pathName.string();
+        if (strcasecmp(path + pos, str) == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+ 
+ ```
+ 
+ `kNoCompressExt`就是不进行压缩的后缀名
+ 
+ ```
+ /* these formats are already compressed, or don't compress well */
+static const char* kNoCompressExt[] = {
+    ".jpg", ".jpeg", ".png", ".gif",
+    ".wav", ".mp2", ".mp3", ".ogg", ".aac",
+    ".mpg", ".mpeg", ".mid", ".midi", ".smf", ".jet",
+    ".rtttl", ".imy", ".xmf", ".mp4", ".m4a",
+    ".m4v", ".3gp", ".3gpp", ".3g2", ".3gpp2",
+    ".amr", ".awb", ".wma", ".wmv", ".webm", ".mkv"
+};
+ ```
+ 
+### 结论
+
+`aapt`在进行apk打包的时候，对于图片、音频、视频等已经进行过压缩的文件不会进行再次压缩，而我们直接通过`zip`命令会不进去区分，对所有文件进行压缩
+
+
+## 解决办法
+
+我们使用`zip`进行打包的时候，也能使用`-n`参数排除这些文件
+
+
+```
+zip -n .jpg:.jpeg:.png:.gif:.wav:.mp2:.mp3:.ogg:.aac:.mpg:.mpeg:.mid:.midi:.smf:.jet:.rtttl:.imy:.xmf:.mp4:.m4v:.3gpp:.3gp:.3g2:.3gpp2:.amr:.awb:.wma:.wmv -r out.zip  file
+
+```
+ 
+ 
