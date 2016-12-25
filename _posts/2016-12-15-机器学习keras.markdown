@@ -1,0 +1,69 @@
+---
+layout: post
+title:  kera 与 tensorflow
+date:   2016-12-15 20:23:15 +0800
+tags:	 keras python tensorflow
+---
+
+
+最近开始学习机器学习，目前用的是keras框架,底层基于google的tensorflow
+
+## TensorFlow
+	
+TensorFlow是谷歌基于DistBelief进行研发的第二代人工智能学习系统，其命名来源于本身的运行原理。
+
+
+![tensorflow]({{ site.url }}/assets/img/tensors_flowing.gif)
+
+
+Tensor（张量）代表了普遍的数据类型，根据不同维数有着不同的含义。一个0阶的张量就是一个数，把一些数排列起来就形成了一个1阶的张量，也就是一个向量。同样把一些向量排列起来，也就形成了2阶张量，即矩阵，以此类推。
+
+Flow（流）意味着基于数据流图的计算，TensorFlow为张量从流图的一端流动到另一端计算过程。TensorFlow是将复杂的数据结构传输至人工智能神经网中进行分析和处理过程的系统。
+
+更多可以参考[Keras](http://keras-cn.readthedocs.io/en/latest/)的中文文档
+
+TensorFlow可被用于语音识别或图像识别等多项机器深度学习领域，对2011年开发的深度学习基础架构DistBelief进行了各方面的改进，它可在小到一部智能手机、大到数千台数据中心服务器的各种设备上运行。TensorFlow将完全开源，任何人都可以用。
+
+## 在Mac系统安装Keras和tensorflow
+
+
+### 系统
+
+macOS Sierra 
+10.12.1
+
+### 升级python
+
+大部分安装过程中出现的问题都和python版本有关系，mac因为系统权限问题，升级python比较麻烦，而且不好管理，这里强烈建议另外安装一个python。
+
+```
+	brew install python
+```
+
+设置你的环境变量,添加新安装的python路径
+
+```
+	PATH=$PATH:/usr/local/bin/python
+```
+
+升级你的pip
+
+```
+	pip install --upgrade pip
+```
+
+### 安装
+
+keras:
+
+```
+	pip install keras
+```
+
+tensorflow
+
+```
+	pip install tensorflow
+```
+
+
