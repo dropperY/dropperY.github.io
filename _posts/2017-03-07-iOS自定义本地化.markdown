@@ -1,0 +1,93 @@
+---
+layout: post
+title:  iOS自定义本地化
+date:   2017-03-07 00:23:15 +0800
+tags:	 iOS Objective-C localization
+---
+
+
+## 什么是本地化
+
+本地化就是当我们的程序发布到世界不同的国家，每个国家或者地区使用的语言都是不同的，我们的程序需要根据不同的地区对我们的程序就行本地化处理
+
+在iOS我们通常使用iOS自带`NSLocalizedString`相关api来处理。
+
+## 为什么要自定义本地化
+	
+随着程序规模增长，越来越多的人参与进来，而且往往一个app由多个小组同时合作编码，为了方便业务进行分离以及减少冲突，我们需要进行一些本地化
+
+现在有一些现成方案
+
+- 使用json数组或者plist的本地持久化不同语言的本地化文件，然后程序动态加载
+- 使用一些第三方库，例如`Swifternalization`
+- 对`NSLocalizedString`进行定制
+
+这些方法都有一些，我的项目应为一些特殊原因，需要封装一个SDK给第三方使用，我选择对`NSlocalizedString`进行定制。
+
+
+
+## 自定义本地化
+
+
+### 自定义宏命令
+
+下面是`NSLocalizedString`的宏定义，可以看出来其实使用了`NSBundle.mainBundle `的`localizedStringForKey`相关api.
+
+```
+#define NSLocalizedString(key, comment) \
+	    [NSBundle.mainBundle localizedStringForKey:(key) value:@"" table:nil]
+	    
+#define NSLocalizedStringFromTable(key, tbl, comment) \
+	    [NSBundle.mainBundle localizedStringForKey:(key) value:@"" table:(tbl)]
+	    
+#define NSLocalizedStringFromTableInBundle(key, tbl, bundle, comment) \
+	    [bundle localizedStringForKey:(key) value:@"" table:(tbl)]
+	    
+#define NSLocalizedStringWithDefaultValue(key, tbl, bundle, val, comment) \
+	    [bundle localizedStringForKey:(key) value:(val) table:(tbl)]
+```
+
+我们可以知道除了`key`之外，我们还有`bundle`和`table`可以定义。
+
+假设我们的本地化文件名为`DRPart.strings`文件在`DRBundle`的
+
+那么我们可以使用以下方法获取strings
+
+
+```
+
++ (NSBundle *)DRBundle {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"DRBundle" ofType:@"bundle"];
+    return [NSBundle bundleWithPath:path];
+}
+
+
+// 然后通过bundle获取
+[bundle localizedStringForKey:@"key" value:nil table:@"DRPart"]
+
+```
+
+每次这样使用有点麻烦，我们可以重新定义一个宏命令
+
+```
+// 定义
+#define DRLocalizedString(key, comment) \
+[[DRClass DRBundle] [bundle localizedStringForKey:(key) value:@"" table:@"DRPart"]
+
+```
+
+使用：
+
+```
+
+DRLocalizedString(@"Fuck", @"Test ff");
+
+```
+
+
+## TODO
+
+我们现在已经实现自定义的宏命令来本地化。`NSLocalizedString`可以使用`genstrings`命令来生成管理`strings`文件,我们也需要类似的命令。
+
+
+
